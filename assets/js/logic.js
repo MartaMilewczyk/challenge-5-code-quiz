@@ -1,14 +1,22 @@
+const startScreenEl = document.querySelector(".start");
+const startButton = document.querySelector("#start");
+const questionCtnEl = document.querySelector("#questions-ctn");
+const questionEl = document.querySelector("#question-title");
+const answerButton = document.querySelector("#answer-buttons");
+const timerEl = document.querySelector("#time");
+const endScreenEl = document.querySelector("#end-screen");
+const submitButton = document.querySelector("#submit");
+const initialsEl = document.querySelector("#initials");
+// const highScoresEl = document.querySelector("highscores");
+const userName = JSON.parse(localStorage.getItem("username")) || [];
 
-let startScreenEl = document.querySelector(".start")
-let startButton = document.querySelector("#start");
-let questionCtnEl = document.querySelector("#questions-ctn")
-let questionEl = document.querySelector("#question-title")
-let answerButton = document.querySelector("#answer-buttons")
-
-let points = 0;
 let questionIndex = 0;
+let score = 0
+let timerCount;
+let timer;
 
 startButton.addEventListener('click', startQuiz);
+submitButton.addEventListener('click', submit);
 
 let shuffleQuestion = questionsArray.sort( function() { 
     return Math.random() - 0.5; 
@@ -17,8 +25,10 @@ let shuffleQuestion = questionsArray.sort( function() {
 function startQuiz() {
     startScreenEl.classList.add("hide");
     questionCtnEl.classList.remove("hide");
+    timerCount = 60;
     shuffleQuestion;
     nextQuestion();
+    startTimer();
 }
 
 function renderQuestion(que) {
@@ -27,10 +37,9 @@ function renderQuestion(que) {
         const btn = document.createElement("button");
         btn.textContent = ans.answer;
         btn.classList.add("button");
-        // console.log(ans);
         if (ans.isCorrect) {
             btn.dataset.isCorrect = ans.isCorrect;
-        }
+        };
         btn.addEventListener("click", selectAnswer);
         answerButton.appendChild(btn);
     });
@@ -45,20 +54,50 @@ function nextQuestion() {
 
 function selectAnswer(event) {
     let selectedButton = event.target;
-    const correct = selectedButton.dataset.isCorrect;
-
-    if (correct) {
-        console.log("correct");
-        points++;
+    let selectedOption = event.target.value;
+    let correct = selectedButton.dataset.isCorrect;
+    if (selectedOption === correct) {
+        selectedButton.setAttribute("style", "background-color: green");
     } else {
-        console.log("incorrect");
-        points--;
-    }
+        selectedButton.setAttribute("style", "background-color: red");
+        timerCount -= 10;
+    };
     questionIndex++;
-// console.log(points);
     if (questionIndex < questionsArray.length) {
-    nextQuestion();
-    } else {
-        console.log("end page");
+        nextQuestion();
+    } else if (questionIndex === questionsArray.length) {
+        endScreenEl.classList.remove("hide");
+        questionCtnEl.classList.add("hide");
     }
+}
+
+function startTimer() {
+    // Sets timer
+    timer = setInterval( function() {
+        timerCount--;
+        timerEl.textContent = timerCount;
+    // Time penalty if answer is wrong
+        if (timerCount >= 0) {
+            // timerCount -= consumeTime;
+            console.log("consumed time");
+        }
+    // Test if time has run out
+        if (timerCount === 0) {
+            // Clears interval
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+
+function submit(event) {
+    event.preventDefault();
+    endScreenEl.classList.add("hide");
+    startScreenEl.classList.remove("hide");
+    let player = {
+        initials: initialsEl.value.toUpperCase(),
+        scores: score,
+    };
+    userName.push(player);
+    localStorage.setItem("username", JSON.stringify(userName));
+    initialsEl.value = "";
 }
