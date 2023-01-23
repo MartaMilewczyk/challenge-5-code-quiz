@@ -36,22 +36,16 @@ function renderQuestion(que) {
     });
 }
 
-function reset() {
+function nextQuestion() {
     while (answerButton.firstChild) {
         answerButton.removeChild(answerButton.firstChild);
     }
-}
-
-function nextQuestion() {
-    reset();
     renderQuestion(shuffleQuestion[questionIndex]);
 }
 
 function selectAnswer(event) {
     let selectedButton = event.target;
-    console.log(selectedButton);
     const correct = selectedButton.dataset.isCorrect;
-    console.log(correct);
 
     if (correct) {
         console.log("correct");
