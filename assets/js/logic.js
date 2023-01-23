@@ -6,6 +6,8 @@ let questionEl = document.querySelector("#question-title")
 let answerButton = document.querySelector("#answer-buttons")
 let nextButton = document.querySelector("#next");
 
+let points = 0;
+let questionIndex = 0;
 
 startButton.addEventListener('click', startQuiz);
 nextButton.addEventListener('click', function () {
@@ -29,8 +31,9 @@ function renderQuestion(que) {
         const btn = document.createElement("button");
         btn.textContent = ans.answer;
         btn.classList.add("button");
-        if (ans.correct) {
-            btn.dataset.correct = ans.correct;
+        // console.log(ans);
+        if (ans.isCorrect) {
+            btn.dataset.isCorrect = ans.isCorrect;
         }
         btn.addEventListener("click", selectAnswer);
         answerButton.appendChild(btn);
@@ -46,17 +49,33 @@ function reset() {
 
 function nextQuestion() {
     reset();
-    renderQuestion(shuffleQuestion[0]);
+    renderQuestion(shuffleQuestion[questionIndex]);
 }
 
 function selectAnswer(event) {
     let selectedButton = event.target;
-    const correct = selectedButton.dataset.correct;
-    setStatusClass(document.body, correct)
-    Array.from(answerButton.children).forEach(function (btn) {
-        setStatusClass(button, button.dataset.correct)
-    })
-    nextButton.classList.remove("hide");
+    console.log(selectedButton);
+    const correct = selectedButton.dataset.isCorrect;
+    console.log(correct);
+
+    if (correct) {
+        console.log("correct");
+        points++;
+    } else {
+        console.log("incorrect");
+        points--;
+    }
+    questionIndex++;
+// console.log(points);
+    if (questionIndex < questionsArray.length) {
+    nextQuestion();
+    } else {
+        console.log("end page");
+        // go to high scores?
+    }
 }
 
 
+function setStatusClass(params) {
+    
+}
