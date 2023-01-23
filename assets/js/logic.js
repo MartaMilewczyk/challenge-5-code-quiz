@@ -4,15 +4,11 @@ let startButton = document.querySelector("#start");
 let questionCtnEl = document.querySelector("#questions-ctn")
 let questionEl = document.querySelector("#question-title")
 let answerButton = document.querySelector("#answer-buttons")
-let nextButton = document.querySelector("#next");
 
 let points = 0;
 let questionIndex = 0;
 
 startButton.addEventListener('click', startQuiz);
-nextButton.addEventListener('click', function () {
-    nextQuestion();
-})
 
 let shuffleQuestion = questionsArray.sort( function() { 
     return Math.random() - 0.5; 
@@ -41,7 +37,6 @@ function renderQuestion(que) {
 }
 
 function reset() {
-    nextButton.classList.add("hide");
     while (answerButton.firstChild) {
         answerButton.removeChild(answerButton.firstChild);
     }
@@ -71,11 +66,5 @@ function selectAnswer(event) {
     nextQuestion();
     } else {
         console.log("end page");
-        // go to high scores?
     }
-}
-
-
-function setStatusClass(params) {
-    
 }
