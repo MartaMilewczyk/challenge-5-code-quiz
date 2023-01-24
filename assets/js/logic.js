@@ -10,14 +10,12 @@ const submitButton = document.querySelector("#submit");
 const initialsEl = document.querySelector("#initials");
 const finalScoreEl = document.querySelector("#final-score")
 const userName = JSON.parse(localStorage.getItem("username")) || [];
-
-const button = document.querySelector(".button")
+const button = document.querySelector(".button");
 
 // Variables declaration
 let questionIndex = 0;
 let score = 0;
 let timerCount;
-let timer;
 
 // Event listeners
 startButton.addEventListener('click', startQuiz);
@@ -66,11 +64,8 @@ function selectAnswer(event) {
     let selectedButton = event.target;
     let timePenalty = 5;
     if (selectedButton.dataset.isCorrect) {
-        console.log("OK");
-        score++;
         button.setAttribute("style", "background-color: green");
     } else {
-        console.log("Wrong");
         button.setAttribute("style", "background-color: red");
         timerCount -= timePenalty;
     };
@@ -89,14 +84,11 @@ function startTimer() {
     timer = setInterval( function() {
         timerCount--;
         timerEl.textContent = timerCount;
-    // Time penalty if answer is wrong
-        if (timerCount >= 0) {
-            // timerCount -= consumeTime;
-
+        if (questionIndex === questionsArray.length) {
+            clearInterval(timer);
+            finalScoreEl.textContent = timerCount;
         }
-    // Test if time has run out
         if (timerCount === 0) {
-            // Clears interval
             clearInterval(timer);
         }
     }, 1000);
@@ -109,7 +101,7 @@ function submit(event) {
     startScreenEl.classList.remove("hide");
     let player = {
         initials: initialsEl.value.toUpperCase(),
-        scores: score,
+        scores: timerCount,
     };
     userName.push(player);
     localStorage.setItem("username", JSON.stringify(userName));

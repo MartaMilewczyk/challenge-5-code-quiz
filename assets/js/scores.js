@@ -4,7 +4,7 @@ const highScores = JSON.parse(localStorage.getItem("username")) || [];
 
     highScoresEl.innerHTML = `
     ${highScores.map((player) =>
-    `<li>User: ${player.initials} - Score: ${player.scores}</li>`).join("")}`;
+    `<li>Player: ${player.initials} - Score: ${player.scores}</li>`).join("")}`;
 
 clearButton.addEventListener("click", clearStorage);
 

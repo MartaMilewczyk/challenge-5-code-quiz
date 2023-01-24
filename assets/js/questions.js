@@ -44,4 +44,49 @@ let questionsArray = [
             { answer: "Proxima centauri", isCorrect: true },
         ]
     },
+    {
+        question: "What is our home galaxy called?",
+        answers: [
+            { answer: "The Big Bang", isCorrect: false },
+            { answer: "Andromeda", isCorrect: false },
+            { answer: "The Milky Way", isCorrect: true },
+            { answer: "The Solar system", isCorrect: false },
+        ]
+    },
+    {
+        question: "The Milky Way Galaxy is?",
+        answers: [
+            { answer: "spiral", isCorrect: true },
+            { answer: "elliptical", isCorrect: false },
+            { answer: "lenticular", isCorrect: false },
+            { answer: "irregular", isCorrect: false },
+        ]
+    },
+    {
+        question: "A cloud of gas and dust in which new stars form?",
+        answers: [
+            { answer: "black hole", isCorrect: false },
+            { answer: "nebula", isCorrect: true },
+            { answer: "constellation", isCorrect: false },
+            { answer: "supernova", isCorrect: false },
+        ]
+    },
+    {
+        question: "Place these object in order from smallest to largest?",
+        answers: [
+            { answer: "Planets, solar system, universe, galaxy", isCorrect: false },
+            { answer: "Planets, solar system, galaxy, universe", isCorrect: true },
+            { answer: "Solar system, planets, galaxy, universe", isCorrect: false },
+            { answer: "Galaxy, solar system, planets, universe", isCorrect: false },
+        ]
+    },
+    {
+        question: "How many stars are there in the Milky Way?",
+        answers: [
+            { answer: "700 milion", isCorrect: false },
+            { answer: "100 bilion", isCorrect: false },
+            { answer: "8 milion", isCorrect: false },
+            { answer: "50 milion", isCorrect: true },
+        ]
+    },
 ]
