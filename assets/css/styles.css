@@ -1,7 +1,6 @@
 :root {
-  background-image: url(../images/universe.jpg);
+  background-image: url("../images/universe.jpg");
   background-size: cover;
-  /* background-repeat: no-repeat; */
 }
 
 body {
