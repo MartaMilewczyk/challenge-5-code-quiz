@@ -11,6 +11,6 @@ clearButton.addEventListener("click", clearStorage);
 function clearStorage() {
     localStorage.getItem("username");
     localStorage.removeItem("username");
-    highScores.innerHTML = ``;
+    highScoresEl.innerHTML = ``;
 }
 

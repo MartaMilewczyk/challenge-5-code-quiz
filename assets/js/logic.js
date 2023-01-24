@@ -1,3 +1,4 @@
+// Query selectors declarations
 const startScreenEl = document.querySelector(".start");
 const startButton = document.querySelector("#start");
 const questionCtnEl = document.querySelector("#questions-ctn");
@@ -7,21 +8,27 @@ const timerEl = document.querySelector("#time");
 const endScreenEl = document.querySelector("#end-screen");
 const submitButton = document.querySelector("#submit");
 const initialsEl = document.querySelector("#initials");
-// const highScoresEl = document.querySelector("highscores");
+const finalScoreEl = document.querySelector("#final-score")
 const userName = JSON.parse(localStorage.getItem("username")) || [];
 
+const button = document.querySelector(".button")
+
+// Variables declaration
 let questionIndex = 0;
-let score = 0
+let score = 0;
 let timerCount;
 let timer;
 
+// Event listeners
 startButton.addEventListener('click', startQuiz);
 submitButton.addEventListener('click', submit);
 
+// Shuffling questions
 let shuffleQuestion = questionsArray.sort( function() { 
     return Math.random() - 0.5; 
 });
 
+// Start function
 function startQuiz() {
     startScreenEl.classList.add("hide");
     questionCtnEl.classList.remove("hide");
@@ -29,8 +36,9 @@ function startQuiz() {
     shuffleQuestion;
     nextQuestion();
     startTimer();
-}
+};
 
+// Question rendering
 function renderQuestion(que) {
     questionEl.textContent = que.question;
     que.answers.forEach(function(ans) {
@@ -43,24 +51,28 @@ function renderQuestion(que) {
         btn.addEventListener("click", selectAnswer);
         answerButton.appendChild(btn);
     });
-}
+};
 
+// Next question looping function
 function nextQuestion() {
     while (answerButton.firstChild) {
         answerButton.removeChild(answerButton.firstChild);
     }
     renderQuestion(shuffleQuestion[questionIndex]);
-}
+};
 
+// Answer selecting function
 function selectAnswer(event) {
     let selectedButton = event.target;
-    let selectedOption = event.target.value;
-    let correct = selectedButton.dataset.isCorrect;
-    if (selectedOption === correct) {
-        selectedButton.setAttribute("style", "background-color: green");
+    let timePenalty = 5;
+    if (selectedButton.dataset.isCorrect) {
+        console.log("OK");
+        score++;
+        button.setAttribute("style", "background-color: green");
     } else {
-        selectedButton.setAttribute("style", "background-color: red");
-        timerCount -= 10;
+        console.log("Wrong");
+        button.setAttribute("style", "background-color: red");
+        timerCount -= timePenalty;
     };
     questionIndex++;
     if (questionIndex < questionsArray.length) {
@@ -69,8 +81,9 @@ function selectAnswer(event) {
         endScreenEl.classList.remove("hide");
         questionCtnEl.classList.add("hide");
     }
-}
+};
 
+// Timer function
 function startTimer() {
     // Sets timer
     timer = setInterval( function() {
@@ -79,7 +92,7 @@ function startTimer() {
     // Time penalty if answer is wrong
         if (timerCount >= 0) {
             // timerCount -= consumeTime;
-            console.log("consumed time");
+
         }
     // Test if time has run out
         if (timerCount === 0) {
@@ -87,8 +100,9 @@ function startTimer() {
             clearInterval(timer);
         }
     }, 1000);
-}
+};
 
+// Submit button function
 function submit(event) {
     event.preventDefault();
     endScreenEl.classList.add("hide");
@@ -100,4 +114,4 @@ function submit(event) {
     userName.push(player);
     localStorage.setItem("username", JSON.stringify(userName));
     initialsEl.value = "";
-}
+};
