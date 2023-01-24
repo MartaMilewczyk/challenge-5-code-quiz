@@ -1,6 +1,16 @@
+:root {
+  background-image: url(../images/universe.jpg);
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+}
+
 body {
   font-family: Arial;
   font-size: 120%;
+  height: 350px;
+  background-color: white;
+  padding: 10px 0 10px 0;
+
 }
 
 a {

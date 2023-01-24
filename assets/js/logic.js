@@ -81,7 +81,7 @@ function selectAnswer(event) {
 // Timer function
 function startTimer() {
     // Sets timer
-    timer = setInterval( function() {
+    let timer = setInterval( function() {
         timerCount--;
         timerEl.textContent = timerCount;
         if (questionIndex === questionsArray.length) {
