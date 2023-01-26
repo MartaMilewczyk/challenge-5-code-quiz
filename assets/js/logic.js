@@ -30,7 +30,7 @@ let shuffleQuestion = questionsArray.sort( function() {
 function startQuiz() {
     startScreenEl.classList.add("hide");
     questionCtnEl.classList.remove("hide");
-    timerCount = 60;
+    timerCount = 120;
     shuffleQuestion;
     nextQuestion();
     startTimer();
@@ -62,7 +62,7 @@ function nextQuestion() {
 // Answer selecting function
 function selectAnswer(event) {
     let selectedButton = event.target;
-    let timePenalty = 5;
+    let timePenalty = 10;
     if (selectedButton.dataset.isCorrect) {
         button.setAttribute("style", "background-color: green");
     } else {
